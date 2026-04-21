@@ -6,6 +6,12 @@ Descripción: Módulo de registro de hábitos saludables
 
 """
 
+# Agregar usuario
+def agregar_usuario():
+    nombre = input("Ingrese nombre: ")
+    edad = int(input("Ingrese edad: "))
+    return crear_usuario(nombre, edad)
+
 # Inicialización del usuario
 def crear_usuario(nombre, edad):
     usuario = {
