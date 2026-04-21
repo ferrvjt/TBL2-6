@@ -1,5 +1,5 @@
 """
-Register-Module
+Stat-Module
 David Morente
 261443
 Descripción: Módulo de evaluación del estado de usuario
