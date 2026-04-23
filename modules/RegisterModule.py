@@ -6,11 +6,12 @@ Descripción: Módulo de registro de hábitos saludables
 
 """
 
-# Agregar usuario
+# Agregar usuario (consola)
 def agregar_usuario():
     nombre = input("Ingrese nombre: ")
     edad = int(input("Ingrese edad: "))
     return crear_usuario(nombre, edad)
+
 
 # Inicialización del usuario
 def crear_usuario(nombre, edad):
@@ -20,105 +21,87 @@ def crear_usuario(nombre, edad):
         "habitos": {
             "sueno": [],
             "alimentacion": [],
-            "ejercicio": []
+            "ejercicio": [],
+            "bienestar": []
         }
     }
     return usuario
 
 
-#Validaciones
-def validar_horas_sueno(horas):
-    return 0 <= horas <= 24
+# Validacion
+def validar_rango(valor, minimo, maximo):
+    return minimo <= valor <= maximo
 
 
-def validar_numero(valor):
-    return valor >= 0
-
-
-# Funciones de registro
-def registrar_sueno(usuario, horas):
-    if validar_horas_sueno(horas):
-        registro = {
-            "horas": horas
-        }
+# Registrar sueno
+def registrar_sueno(usuario, horas, calidad, despierta, pantalla):
+    if validar_rango(horas, 0, 24) and validar_rango(calidad, 1, 5):
+        registro = {"horas": horas, "calidad": calidad, "despierta": despierta, "pantalla": pantalla}
         usuario["habitos"]["sueno"].append(registro)
         return True
     return False
 
 
-def registrar_alimentacion(usuario, comidas_saludables):
-    if validar_numero(comidas_saludables):
-        registro = {
-            "comidas_saludables": comidas_saludables
-        }
+# Registrar alimentacion
+def registrar_alimentacion(usuario, comidas, agua, frutas, comida_rapida):
+    if comidas >= 0 and agua >= 0 and frutas >= 0:
+        registro = {"comidas": comidas, "agua": agua, "frutas": frutas, "comida_rapida": comida_rapida}
         usuario["habitos"]["alimentacion"].append(registro)
         return True
     return False
 
 
-def registrar_ejercicio(usuario, minutos):
-    if validar_numero(minutos):
-        registro = {
-            "minutos": minutos
-        }
+# Registrar ejercicio
+def registrar_ejercicio(usuario, minutos, tipo, intensidad):
+    if minutos >= 0:
+        registro = {"minutos": minutos, "tipo": tipo, "intensidad": intensidad}
         usuario["habitos"]["ejercicio"].append(registro)
         return True
     return False
 
 
-# Ver registros
-def mostrar_registros(usuario):
-    print(f"\nHistorial de {usuario['nombre']}")
-
-    for tipo, registros in usuario["habitos"].items():
-        print(f"\n{tipo.upper()}:")
-
-        if len(registros) == 0:
-            print("  Sin registros")
-        else:
-            for i, dato in enumerate(registros):
-                print(f"  Día {i+1}: {dato}")
+# Registrar bienestar
+def registrar_bienestar(usuario, pantalla_horas, estres):
+    if pantalla_horas >= 0 and validar_rango(estres, 1, 5):
+        registro = {"pantalla_horas": pantalla_horas, "estres": estres}
+        usuario["habitos"]["bienestar"].append(registro)
+        return True
+    return False
 
 
-# Select del registro
+# Menu de registro (consola)
 def menu_registro(usuario):
     while True:
-        print("\n--- REGISTRO DE HÁBITOS ---")
-        print("1. Registrar sueño")
-        print("2. Registrar alimentación")
-        print("3. Registrar ejercicio")
-        print("4. Ver registros")
-        print("5. Salir")
-
-        opcion = input("Seleccione una opción: ")
+        print("\n--- REGISTRO ---")
+        print("1. Sueno  2. Alimentacion  3. Ejercicio  4. Bienestar  5. Salir")
+        opcion = input("Opcion: ")
 
         if opcion == "1":
-            horas = float(input("Ingrese horas de sueño: "))
-            if registrar_sueno(usuario, horas):
-                print("Registro guardado")
-            else:
-                print("Dato inválido")
+            horas = float(input("Horas de sueno: "))
+            calidad = int(input("Calidad (1-5): "))
+            despierta = input("Te despertaste? (s/n): ").lower() == "s"
+            pantalla = input("Pantallas antes de dormir? (s/n): ").lower() == "s"
+            print("Guardado" if registrar_sueno(usuario, horas, calidad, despierta, pantalla) else "Dato invalido")
 
         elif opcion == "2":
-            comidas = int(input("Número de comidas saludables: "))
-            if registrar_alimentacion(usuario, comidas):
-                print("Registro guardado")
-            else:
-                print("Dato inválido")
+            comidas = int(input("Comidas saludables: "))
+            agua = int(input("Vasos de agua: "))
+            frutas = int(input("Frutas/verduras: "))
+            rapida = input("Comida rapida? (s/n): ").lower() == "s"
+            print("Guardado" if registrar_alimentacion(usuario, comidas, agua, frutas, rapida) else "Dato invalido")
 
         elif opcion == "3":
             minutos = int(input("Minutos de ejercicio: "))
-            if registrar_ejercicio(usuario, minutos):
-                print("Registro guardado")
-            else:
-                print("Dato inválido")
+            tipo = input("Tipo (caminar/correr/deporte/gimnasio/ninguno): ")
+            intensidad = input("Intensidad (baja/media/alta): ")
+            print("Guardado" if registrar_ejercicio(usuario, minutos, tipo, intensidad) else "Dato invalido")
 
         elif opcion == "4":
-            mostrar_registros(usuario)
+            horas_pantalla = float(input("Horas de pantalla: "))
+            estres = int(input("Estres (1-5): "))
+            print("Guardado" if registrar_bienestar(usuario, horas_pantalla, estres) else "Dato invalido")
 
         elif opcion == "5":
-            print("Saliendo del registro...")
             break
-
         else:
-            print("Opción inválida")
+            print("Opcion invalida")

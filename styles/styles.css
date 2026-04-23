@@ -195,3 +195,54 @@ p, .stMarkdown p {
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+    background-color: #1e293b;
+    border-radius: 12px;
+    padding: 6px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    background-color: transparent;
+    color: #94a3b8 !important;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, #0ea5e9, #22c55e) !important;
+    color: #0f172a !important;
+}
+
+/* Progress bar */
+.stProgress > div > div > div {
+    background: linear-gradient(135deg, #0ea5e9, #22c55e) !important;
+    border-radius: 10px;
+}
+
+.stProgress > div > div {
+    background-color: #1e293b !important;
+    border-radius: 10px;
+}
+
+/* Sidebar radio buttons */
+.stRadio > div {
+    gap: 4px;
+}
+
+.stRadio > div > label {
+    background-color: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    padding: 10px 16px !important;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.stRadio > div > label:hover {
+    border-color: #38bdf8;
+    background-color: #1e293b;
+}
