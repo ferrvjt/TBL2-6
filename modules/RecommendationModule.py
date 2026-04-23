@@ -71,10 +71,10 @@ def obtener_recomendaciones(usuario):
 
 # Retroalimentacion general
 def obtener_retroalimentacion(usuario):
-    s = evaluar_sueno(usuario)
-    a = evaluar_alimentacion(usuario)
-    e = evaluar_ejercicio(usuario)
-    b = evaluar_bienestar(usuario)
+    puntos_sueno = evaluar_sueno(usuario)
+    puntos_alimentacion = evaluar_alimentacion(usuario)
+    puntos_ejercicio = evaluar_ejercicio(usuario)
+    puntos_bienestar = evaluar_bienestar(usuario)
     promedio = evaluar_general(usuario)
 
     if promedio >= 80:
@@ -90,7 +90,7 @@ def obtener_retroalimentacion(usuario):
         mensaje = "Es importante hacer cambios en tu estilo de vida."
         nivel = "deficiente"
 
-    return {"sueno": s, "alimentacion": a, "ejercicio": e, "bienestar": b,
+    return {"sueno": puntos_sueno, "alimentacion": puntos_alimentacion, "ejercicio": puntos_ejercicio, "bienestar": puntos_bienestar,
             "promedio": promedio, "nivel": nivel, "mensaje": mensaje}
 
 

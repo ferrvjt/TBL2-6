@@ -9,7 +9,7 @@ from modules.StatModule import (
 )
 from modules.RecommendationModule import obtener_recomendaciones, obtener_retroalimentacion
 
-st.set_page_config(page_title="Vida Saludable", page_icon="🌿", layout="wide")
+st.set_page_config(page_title="Vida Saludable", layout="wide")
 
 
 # CSS
@@ -32,8 +32,8 @@ if "cuestionario_completo" not in st.session_state:
 # PASO 1: REGISTRO DE USUARIO
 # ============================================================
 if st.session_state.usuario is None:
-    st.title("🌿 Vida Saludable")
-    st.markdown("#### Tu asistente personal de hábitos saludables")
+    st.title("Vida Saludable")
+    st.markdown("#### Tu asistente personal de habitos saludables")
     st.markdown("---")
 
     with st.form("form_usuario"):
@@ -57,56 +57,56 @@ if st.session_state.usuario is None:
 elif not st.session_state.cuestionario_completo:
     usuario = st.session_state.usuario
 
-    st.title("🌿 Vida Saludable")
-    st.markdown(f"### Hola, {usuario['nombre']}! Cuéntanos sobre tu estilo de vida")
+    st.title("Vida Saludable")
+    st.markdown(f"### Hola, {usuario['nombre']}! Cuentanos sobre tu estilo de vida")
     st.markdown("Responde estas preguntas para conocer tu estado actual y darte recomendaciones personalizadas.")
     st.markdown("---")
 
     with st.form("cuestionario_inicial"):
 
         # --- Sueño ---
-        st.subheader("😴 Sueño")
+        st.subheader("Sueno")
         col1, col2 = st.columns(2)
         with col1:
-            horas = st.slider("¿Cuántas horas duermes normalmente?", 0.0, 14.0, 7.0, 0.5)
-            calidad = st.slider("¿Cómo calificas tu calidad de sueño?", 1, 5, 3)
+            horas = st.slider("Cuantas horas duermes normalmente?", 0.0, 14.0, 7.0, 0.5)
+            calidad = st.slider("Como calificas tu calidad de sueno?", 1, 5, 3)
         with col2:
-            despierta = st.selectbox("¿Te despiertas durante la noche?", ["No", "Sí"], key="q_desp") == "Sí"
-            pantalla = st.selectbox("¿Usas pantallas antes de dormir?", ["No", "Sí"], key="q_pant") == "Sí"
+            despierta = st.selectbox("Te despiertas durante la noche?", ["No", "Si"], key="q_desp") == "Si"
+            pantalla = st.selectbox("Usas pantallas antes de dormir?", ["No", "Si"], key="q_pant") == "Si"
 
         st.markdown("---")
 
         # --- Alimentación ---
-        st.subheader("🥗 Alimentación")
+        st.subheader("Alimentacion")
         col1, col2 = st.columns(2)
         with col1:
-            comidas = st.number_input("¿Cuántas comidas saludables comes al día?", 0, 10, 2)
-            agua = st.number_input("¿Cuántos vasos de agua tomas al día?", 0, 20, 4)
+            comidas = st.number_input("Cuantas comidas saludables comes al dia?", 0, 10, 2)
+            agua = st.number_input("Cuantos vasos de agua tomas al dia?", 0, 20, 4)
         with col2:
-            frutas = st.number_input("¿Porciones de frutas/verduras al día?", 0, 15, 2)
-            comida_rapida = st.selectbox("¿Comes comida rápida frecuentemente?", ["No", "Sí"], key="q_rapida") == "Sí"
+            frutas = st.number_input("Porciones de frutas/verduras al dia?", 0, 15, 2)
+            comida_rapida = st.selectbox("Comes comida rapida frecuentemente?", ["No", "Si"], key="q_rapida") == "Si"
 
         st.markdown("---")
 
         # --- Ejercicio ---
-        st.subheader("🏃 Ejercicio")
+        st.subheader("Ejercicio")
         col1, col2 = st.columns(2)
         with col1:
-            minutos = st.number_input("¿Minutos de ejercicio al día?", 0, 300, 15)
-            tipo = st.selectbox("¿Qué tipo de actividad haces?",
+            minutos = st.number_input("Minutos de ejercicio al dia?", 0, 300, 15)
+            tipo = st.selectbox("Que tipo de actividad haces?",
                                 ["caminar", "correr", "deporte", "gimnasio", "otro", "ninguno"])
         with col2:
-            intensidad = st.selectbox("¿Qué intensidad?", ["baja", "media", "alta"])
+            intensidad = st.selectbox("Que intensidad?", ["baja", "media", "alta"])
 
         st.markdown("---")
 
         # --- Bienestar ---
-        st.subheader("🧘 Bienestar General")
+        st.subheader("Bienestar General")
         col1, col2 = st.columns(2)
         with col1:
-            pantalla_horas = st.number_input("¿Horas frente a pantalla al día?", 0.0, 24.0, 6.0, 0.5)
+            pantalla_horas = st.number_input("Horas frente a pantalla al dia?", 0.0, 24.0, 6.0, 0.5)
         with col2:
-            estres = st.slider("¿Tu nivel de estrés? (1 = bajo, 5 = alto)", 1, 5, 3)
+            estres = st.slider("Tu nivel de estres? (1 = bajo, 5 = alto)", 1, 5, 3)
 
         enviado = st.form_submit_button("Ver mi reporte")
 
@@ -127,40 +127,31 @@ else:
 
     # --- Sidebar ---
     with st.sidebar:
-        st.markdown("### 🌿 Vida Saludable")
-        st.markdown(f"**{usuario['nombre']}** · {usuario['edad']} años")
+        st.markdown("### Vida Saludable")
+        st.markdown(f"**{usuario['nombre']}** - {usuario['edad']} anios")
         st.markdown("---")
 
-        pagina = st.radio("Navegación", [
-            "📊 Mi Reporte",
-            "📝 Actualización Diaria",
-            "💡 Recomendaciones"
+        pagina = st.radio("Navegacion", [
+            "Mi Reporte",
+            "Actualizacion Diaria",
+            "Recomendaciones"
         ], label_visibility="collapsed")
 
         st.markdown("---")
-        if st.button("Cerrar sesión"):
+        if st.button("Cerrar sesion"):
             st.session_state.usuario = None
             st.session_state.cuestionario_completo = False
             st.rerun()
 
-    # --- PÁGINA: MI REPORTE ---
-    if pagina == "📊 Mi Reporte":
-        st.title("📊 Mi Reporte de Salud")
+    # --- PAGINA: MI REPORTE ---
+    if pagina == "Mi Reporte":
+        st.title("Mi Reporte de Salud")
 
         retro = obtener_retroalimentacion(usuario)
         promedio = retro["promedio"]
         nivel = retro["nivel"]
 
-        if nivel == "excelente":
-            emoji = "🌟"
-        elif nivel == "bueno":
-            emoji = "👍"
-        elif nivel == "regular":
-            emoji = "⚠️"
-        else:
-            emoji = "🔴"
-
-        st.markdown(f"### {emoji} Estado General: {promedio}/100 — {nivel.upper()}")
+        st.markdown(f"### Estado General: {promedio}/100 - {nivel.upper()}")
         st.progress(min(promedio, 100))
         st.info(retro["mensaje"])
 
@@ -168,48 +159,48 @@ else:
 
         # Metricas por categoria
         col1, col2, col3, col4 = st.columns(4)
-        col1.metric("😴 Sueño", f"{retro['sueno']}/100", rendimiento(retro["sueno"]))
-        col2.metric("🥗 Alimentación", f"{retro['alimentacion']}/100", rendimiento(retro["alimentacion"]))
-        col3.metric("🏃 Ejercicio", f"{retro['ejercicio']}/100", rendimiento(retro["ejercicio"]))
-        col4.metric("🧘 Bienestar", f"{retro['bienestar']}/100", rendimiento(retro["bienestar"]))
+        col1.metric("Sueno", f"{retro['sueno']}/100", rendimiento(retro["sueno"]))
+        col2.metric("Alimentacion", f"{retro['alimentacion']}/100", rendimiento(retro["alimentacion"]))
+        col3.metric("Ejercicio", f"{retro['ejercicio']}/100", rendimiento(retro["ejercicio"]))
+        col4.metric("Bienestar", f"{retro['bienestar']}/100", rendimiento(retro["bienestar"]))
 
         dias = len(usuario["habitos"]["sueno"])
         st.markdown(f"---\n*Basado en **{dias}** dia(s) de registro.*")
 
-    # --- PÁGINA: ACTUALIZACIÓN DIARIA ---
-    elif pagina == "📝 Actualización Diaria":
-        st.title("📝 Actualizar mi día")
-        st.markdown("Registra cómo fue tu día de hoy para actualizar tu reporte.")
+    # --- PAGINA: ACTUALIZACION DIARIA ---
+    elif pagina == "Actualizacion Diaria":
+        st.title("Actualizar mi dia")
+        st.markdown("Registra como fue tu dia de hoy para actualizar tu reporte.")
 
-        tab1, tab2, tab3, tab4 = st.tabs(["😴 Sueño", "🥗 Alimentación", "🏃 Ejercicio", "🧘 Bienestar"])
+        tab1, tab2, tab3, tab4 = st.tabs(["Sueno", "Alimentacion", "Ejercicio", "Bienestar"])
 
         with tab1:
             with st.form("form_sueno"):
-                st.subheader("¿Cómo dormiste?")
-                horas = st.slider("Horas de sueño", 0.0, 14.0, 7.0, 0.5)
-                calidad = st.slider("Calidad del sueño", 1, 5, 3)
-                despierta = st.selectbox("¿Te despertaste en la noche?", ["No", "Sí"], key="d_desp") == "Sí"
-                pantalla = st.selectbox("¿Usaste pantallas antes de dormir?", ["No", "Sí"], key="d_pant") == "Sí"
+                st.subheader("Como dormiste?")
+                horas = st.slider("Horas de sueno", 0.0, 14.0, 7.0, 0.5)
+                calidad = st.slider("Calidad del sueno", 1, 5, 3)
+                despierta = st.selectbox("Te despertaste en la noche?", ["No", "Si"], key="d_desp") == "Si"
+                pantalla = st.selectbox("Usaste pantallas antes de dormir?", ["No", "Si"], key="d_pant") == "Si"
 
-                if st.form_submit_button("Guardar sueño"):
+                if st.form_submit_button("Guardar sueno"):
                     registrar_sueno(usuario, horas, calidad, despierta, pantalla)
-                    st.success("Registro de sueño guardado")
+                    st.success("Registro de sueno guardado")
 
         with tab2:
             with st.form("form_alimentacion"):
-                st.subheader("¿Cómo comiste hoy?")
+                st.subheader("Como comiste hoy?")
                 comidas = st.number_input("Comidas saludables", 0, 10, 2)
                 agua = st.number_input("Vasos de agua", 0, 20, 4)
                 frutas = st.number_input("Porciones de frutas/verduras", 0, 15, 2)
-                comida_rapida = st.selectbox("¿Comiste comida rápida?", ["No", "Sí"], key="d_rapida") == "Sí"
+                comida_rapida = st.selectbox("Comiste comida rapida?", ["No", "Si"], key="d_rapida") == "Si"
 
-                if st.form_submit_button("Guardar alimentación"):
+                if st.form_submit_button("Guardar alimentacion"):
                     registrar_alimentacion(usuario, int(comidas), int(agua), int(frutas), comida_rapida)
-                    st.success("Registro de alimentación guardado")
+                    st.success("Registro de alimentacion guardado")
 
         with tab3:
             with st.form("form_ejercicio"):
-                st.subheader("¿Hiciste ejercicio?")
+                st.subheader("Hiciste ejercicio?")
                 minutos = st.number_input("Minutos de ejercicio", 0, 300, 15)
                 tipo = st.selectbox("Tipo de actividad",
                                     ["caminar", "correr", "deporte", "gimnasio", "otro", "ninguno"])
@@ -221,17 +212,17 @@ else:
 
         with tab4:
             with st.form("form_bienestar"):
-                st.subheader("¿Cómo te sentiste?")
+                st.subheader("Como te sentiste?")
                 pantalla_horas = st.number_input("Horas frente a pantalla", 0.0, 24.0, 6.0, 0.5)
-                estres = st.slider("Nivel de estrés (1 = bajo, 5 = alto)", 1, 5, 3)
+                estres = st.slider("Nivel de estres (1 = bajo, 5 = alto)", 1, 5, 3)
 
                 if st.form_submit_button("Guardar bienestar"):
                     registrar_bienestar(usuario, pantalla_horas, estres)
                     st.success("Registro de bienestar guardado")
 
-    # --- PÁGINA: RECOMENDACIONES ---
-    elif pagina == "💡 Recomendaciones":
-        st.title("💡 Recomendaciones Personalizadas")
+    # --- PAGINA: RECOMENDACIONES ---
+    elif pagina == "Recomendaciones":
+        st.title("Recomendaciones Personalizadas")
 
         lista_rec = obtener_recomendaciones(usuario)
 
